@@ -2,13 +2,13 @@ package model;
 
 import Type.TypeSinistre;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Sinistre {
 
     private Integer sinistreId ;
 
-    private LocalDate date ;
+    private Date date ;
 
     private Double montant ;
 
@@ -18,8 +18,10 @@ public class Sinistre {
 
     private static  int counter=0;
 
+    private int contrat_id ;
 
-    public Sinistre(LocalDate date , Double montant ,String description){
+
+    public Sinistre(Date date , Double montant ,String description , TypeSinistre ts, int contrat_id){
         counter++;
 
         this.sinistreId=counter;
@@ -30,14 +32,18 @@ public class Sinistre {
 
         this.description = description ;
 
+        this.type=ts;
+        this.contrat_id=contrat_id;
 
     }
 
-    public Sinistre(Integer id, LocalDate date, Double montant, String description) {
+    public Sinistre(Integer id, Date date, Double montant, String description ,TypeSinistre ts , int contrat_id) {
         this.sinistreId = id;
         this.date = date;
         this.montant = montant;
         this.description = description;
+        this.type=ts;
+        this.contrat_id=contrat_id;
     }
 
     public Integer getId() {
@@ -48,12 +54,12 @@ public class Sinistre {
         this.sinistreId = id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate(Date date) {
+        this.date = date; 
     }
 
     public Double getMontant() {
@@ -89,6 +95,14 @@ public class Sinistre {
         this.type = type;
     }
 
+
+    public int getContrat_id() {
+        return contrat_id;
+    }
+
+    public void setContrat_id(int contrat_id) {
+        this.contrat_id = contrat_id;
+    }
 
     @Override
     public String toString() {

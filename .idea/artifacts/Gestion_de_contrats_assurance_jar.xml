@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Gestion_de_contrats_assurance:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gestion_de_contrats_assurance_jar</output-path>
+    <root id="archive" name="Gestion_de_contrats_assurance.jar">
+      <element id="module-output" name="Gestion_de_contrats_assurance" />
+      <element id="extracted-dir" path="$USER_HOME$/postgresql-42.6.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
