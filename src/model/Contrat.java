@@ -5,7 +5,7 @@ import Type.TypeContract;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Contract {
+public class Contrat {
 
     private Integer contractId ;
 
@@ -21,7 +21,7 @@ public class Contract {
 
 
 
-    public Contract( LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
+    public Contrat( LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
         counter++;
 
         this.contractId = counter;
@@ -31,7 +31,7 @@ public class Contract {
         this.liseDeSinistre = new ArrayList<>();
     }
 
-    public Contract(Integer id, LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
+    public Contrat(Integer id, LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
         this.contractId = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -71,13 +71,6 @@ public class Contract {
         this.type = type;
     }
 
-    public static int getCounter() {
-        return counter;
-    }
-
-    public static void setCounter(int counter) {
-        Contract.counter = counter;
-    }
 
     public void addSinistre(Sinistre sinistre) {
         if (sinistre != null) {
