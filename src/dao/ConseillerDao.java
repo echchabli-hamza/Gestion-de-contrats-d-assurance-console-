@@ -1,6 +1,7 @@
 package dao;
 
 
+import model.Client;
 import model.Conseiller;
 import util.DB;
 
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class ConseillerDao {
@@ -21,36 +23,36 @@ public class ConseillerDao {
     }
 
 
-    public boolean createConseiller(Conseiller c){
+    public boolean createConseiller(Conseiller c) {
 
         String url = "INSERT INTO Conseiller ( conseiller_id ,nom , prenom , email  ) values (? ,?,?,?)";
 
 
-        try{
+        try {
 
             PreparedStatement prmp = conn.prepareStatement(url);
 
-            prmp.setInt(1 ,c.getConseillerId());
-            prmp.setString(2 , c.getNom());
-            prmp.setString(3 , c.getPernom());
-            prmp.setString(4 , c.getEmail());
+            prmp.setInt(1, c.getConseillerId());
+            prmp.setString(2, c.getNom());
+            prmp.setString(3, c.getPernom());
+            prmp.setString(4, c.getEmail());
 
-            int res=prmp.executeUpdate();
-            return res >0;
+            int res = prmp.executeUpdate();
+            return res > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error :"+e.getMessage());
-            return false ;
+            System.out.println("Error :" + e.getMessage());
+            return false;
         }
 
     }
 
-    public ArrayList<Conseiller> getAll(){
+    public ArrayList<Conseiller> getAll() {
 
 
         ArrayList<Conseiller> listeCr = new ArrayList<>();
 
-        String url ="Select * from Conseiller";
+        String url = "Select * from Conseiller";
 
 
         try {
@@ -58,16 +60,15 @@ public class ConseillerDao {
 
             ResultSet res = prmp.executeQuery();
 
-            while(res.next()){
-                Conseiller cr = new Conseiller(res.getString("nom") , res.getString("prenom") , res.getString("email") , res.getInt("conseiller_id"));
+            while (res.next()) {
+                Conseiller cr = new Conseiller(res.getString("nom"), res.getString("prenom"), res.getString("email"), res.getInt("conseiller_id"));
 
-               System.out.println(cr.toString());
+                System.out.println(cr.toString());
                 listeCr.add(cr);
 
             }
 
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQL Error" + e.getMessage());
 
         }
@@ -91,7 +92,6 @@ public class ConseillerDao {
     }
 
 
-
     public Optional<Conseiller> getConseillerById(int conseillerId) {
         String sql = "SELECT conseiller_id, nom, prenom, email FROM Conseiller WHERE conseiller_id = ?";
         try {
@@ -100,7 +100,7 @@ public class ConseillerDao {
 
             ResultSet rs = prmp.executeQuery();
             if (rs.next()) {
-                Conseiller c = new Conseiller(rs.getString("nom"),rs.getString("prenom"),rs.getString("email"),rs.getInt("conseiller_id"));
+                Conseiller c = new Conseiller(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("conseiller_id"));
 
                 return Optional.of(c);
 
@@ -109,6 +109,38 @@ public class ConseillerDao {
             System.out.println("SQL Error: " + e.getMessage());
         }
         return Optional.empty();
+    }
+
+
+    public HashMap<Integer, Client> getAllClient(int conseiller_id) {
+
+
+        HashMap<Integer, Client> liste = new HashMap<>();
+
+        String query = "SELECT * FROM client WHERE conseiller_id = ?;";
+
+        try {
+
+            PreparedStatement prmp = conn.prepareStatement(query);
+
+            prmp.setInt(1, conseiller_id);
+
+            ResultSet res = prmp.executeQuery();
+
+            while (res.next()) {
+
+                Client obj = new Client(res.getString("nom"), res.getString("prenom"), res.getString("email"), res.getInt("client_id"), res.getInt("conseiller_id"));
+
+
+                liste.put(res.getInt("client_id"), obj);
+
+            }
+
+        } catch (SQLException s) {
+            System.out.println("SQL Error" + s.getMessage());
+        }
+
+        return liste;
     }
 
 

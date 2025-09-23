@@ -55,25 +55,6 @@ public class ClientDao {
     }
 
 
-    public HashMap<Integer, Client> getClientsByConseillerId(int conseillerId) {
-        HashMap<Integer, Client> clientsMap = new HashMap<>();
-        String sql = "SELECT client_id, nom, prenom, email, conseiller_id FROM Client WHERE conseiller_id = ?";
-
-        try {
-            PreparedStatement prmp = conn.prepareStatement(sql);
-            prmp.setInt(1, conseillerId);
-
-            ResultSet rs = prmp.executeQuery();
-            while (rs.next()) {
-                Client c = new Client(rs.getString("nom"),rs.getString("prenom"), rs.getString("email"), rs.getInt("client_id"), rs.getInt("conseiller_id"));
-                clientsMap.put(c.getClientId(), c);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-        }
-
-        return clientsMap;
-    }
 
 
 
@@ -138,36 +119,31 @@ public class ClientDao {
     }
 
 
-    public HashMap<Integer , Client> getAllClient(int conseiller_id){
+
+    public HashMap<Integer, Client> getAllClients() {
+        HashMap<Integer, Client> clients = new HashMap<>();
+        String sql = "SELECT * FROM Client";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Client c = new Client(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("client_id"), rs.getInt("conseiller_id"));
 
 
-        HashMap<Integer , Client> liste = new HashMap<>();
-
-        String query = "SELECT * FROM client WHERE conseiller_id = ?;";
-
-        try {
-
-            PreparedStatement prmp = conn.prepareStatement(query);
-
-            prmp.setInt(1 , conseiller_id);
-
-            ResultSet res= prmp.executeQuery();
-
-            while(res.next()){
-
-                Client obj = new Client(res.getString("nom"), res.getString("prenom"), res.getString("email"), res.getInt("client_id"), res.getInt("conseiller_id"));
-
-
-
-                liste.put(res.getInt("client_id") , obj);
-
+                clients.put(c.getClientId(), c);
             }
 
-        }catch (SQLException s){
-            System.out.println("SQL Error" + s.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error fetching clients: " + e.getMessage());
         }
 
-        return liste;
+        return clients;
     }
+
+
+
+
+
 
 }
