@@ -14,10 +14,10 @@ public class DB {
 
     private DB() {
         try {
-//            // Load the PostgreSQL JDBC driver
+
            Class.forName("org.postgresql.Driver");
 
-            // Establish the connection
+
             this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Connection established successfully!");
         } catch (ClassNotFoundException e) {

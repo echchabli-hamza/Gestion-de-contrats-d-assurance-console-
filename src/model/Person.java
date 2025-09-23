@@ -53,7 +53,7 @@ abstract public class Person {
     }
 
     public String toString(){
-        return "Nom : " + this.nom + " Prenom : " + this.prenom + " Email : " +this.email ;
+        return "Nom : " + this.nom + "/ Prenom : " + this.prenom + " / Email : " +this.email ;
     }
 
 

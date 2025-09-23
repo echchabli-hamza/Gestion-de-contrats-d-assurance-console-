@@ -1,26 +1,27 @@
 import Type.TypeSinistre;
+import dao.ClientDao;
+import dao.ConseillerDao;
 import dao.SinistreDao;
+import model.Client;
+import model.Conseiller;
 import model.Sinistre;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
 
 
-        SinistreDao sdao =new SinistreDao();
+        ConseillerDao cd = new ConseillerDao();
 
-        Sinistre s1 = new Sinistre(Date.valueOf("2025-09-22"), 13000.0, "1111111111",TypeSinistre.ACCIDENT_MAISON , 1);
-        Sinistre s2 = new Sinistre(Date.valueOf("2025-09-22"), 13000.0, "22222222222222é",TypeSinistre.ACCIDENT_MAISON , 1);
-        Sinistre s3 = new Sinistre(Date.valueOf("2025-09-22"), 13000.0, "3333333333",TypeSinistre.ACCIDENT_MAISON , 1);
-
-        sdao.createSinistre(s1 );
-
-        sdao.createSinistre(s2 );
-        sdao.createSinistre(s3 );
+        Optional res = cd.getConseillerById(6);
 
 
 
+
+        System.out.println(res.toString());
 
 
 
@@ -28,4 +29,7 @@ public class Main {
 
 
     }
+
+
+
 }
