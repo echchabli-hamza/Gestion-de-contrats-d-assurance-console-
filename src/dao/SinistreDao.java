@@ -1,12 +1,14 @@
 package dao;
 
+import Type.TypeSinistre;
 import model.Sinistre;
 import util.DB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class SinistreDao {
 
@@ -19,8 +21,7 @@ public class SinistreDao {
     public boolean createSinistre(Sinistre s ) {
         String sql = "INSERT INTO Sinistre (sinistre_id, contrat_id, date, montant, description, type) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, s.getId());
             pstmt.setInt(2, s.getContrat_id() );
@@ -36,6 +37,60 @@ public class SinistreDao {
             System.err.println("Error creating Sinistre: " + e.getMessage());
             return false;
         }
+    }
+
+
+
+    public Optional<Sinistre> getSinistreById(int id) {
+        String sql = "SELECT * FROM Sinistre WHERE sinistre_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                Sinistre s = new Sinistre(
+                        rs.getInt("sinistre_id"),
+
+                        rs.getDate("date"),
+                        rs.getDouble("montant"),rs.getString("description"),TypeSinistre.valueOf(rs.getString("type") ),rs.getInt("contrat_id")
+                );
+                return Optional.of(s);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching Sinistre: " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+
+
+    public ArrayList<Sinistre> getAll(){
+
+        String query = "SELECT * FROM sinistre";
+
+        ArrayList<Sinistre> liste = new ArrayList<>();
+
+
+        try(PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+           ResultSet res= pstmt.executeQuery();
+
+           while (res.next()){
+
+               Sinistre s= new Sinistre(res.getInt("sinistre_id") , res.getDate("date"),res.getDouble("montant") , res.getString("description"), TypeSinistre.valueOf(res.getString("type")),res.getInt("contrat_id"));
+
+               liste.add(s);
+
+           }
+
+          }catch(SQLException s){
+
+            System.out.println("Error : " + s.getMessage());
+
+          }
+
+        return liste ;
+
     }
 
 

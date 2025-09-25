@@ -4,16 +4,21 @@ import Type.TypeContract;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public class Contrat {
 
     private Integer contractId ;
 
-    private LocalDate dateDebut ;
+    private Date dateDebut ;
 
-    private LocalDate dateFin ;
+    private int clientId;
+
+    private Date dateFin ;
 
     private TypeContract type;
+
+
 
     private ArrayList<Sinistre> liseDeSinistre ;
 
@@ -21,9 +26,10 @@ public class Contrat {
 
 
 
-    public Contrat( LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
+    public Contrat( Date dateDebut, Date dateFin, TypeContract type , int clinetID) {
         counter++;
 
+        this.clientId = clinetID;
         this.contractId = counter;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -31,7 +37,8 @@ public class Contrat {
         this.liseDeSinistre = new ArrayList<>();
     }
 
-    public Contrat(Integer id, LocalDate dateDebut, LocalDate dateFin, TypeContract type) {
+    public Contrat(Integer id , Date dateDebut, Date dateFin, TypeContract type,int clinetID) {
+        this.clientId = clinetID;
         this.contractId = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -47,19 +54,27 @@ public class Contrat {
         this.contractId = id;
     }
 
-    public LocalDate getDateDebut() {
+    public int getclientId(){
+        return this.clientId;
+    }
+
+    public void setClientId(int id ){
+        this.clientId = id;
+    }
+
+    public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(Date dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -89,6 +104,7 @@ public class Contrat {
     public String toString() {
         return "Contract{" +
                 "id=" + contractId +
+                "  Client id :" + clientId+
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", type=" + type +

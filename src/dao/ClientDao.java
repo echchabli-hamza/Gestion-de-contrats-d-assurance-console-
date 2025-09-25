@@ -120,30 +120,29 @@ public class ClientDao {
 
 
 
-    public HashMap<Integer, Client> getAllClients() {
-        HashMap<Integer, Client> clients = new HashMap<>();
+    public ArrayList<Client> getAllClients() {
+        ArrayList<Client> clients = new ArrayList<>();
         String sql = "SELECT * FROM Client";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
+
                 Client c = new Client(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("client_id"), rs.getInt("conseiller_id"));
 
+                clients.add(c);
 
-                clients.put(c.getClientId(), c);
             }
 
         } catch (SQLException e) {
+
             System.err.println("Error fetching clients: " + e.getMessage());
+
         }
 
         return clients;
+
     }
-
-
-
-
-
 
 }
