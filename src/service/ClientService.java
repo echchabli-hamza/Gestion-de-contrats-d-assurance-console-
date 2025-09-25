@@ -28,7 +28,10 @@ public class ClientService {
 
 
     public Optional<Client> getClientById(int clientId) {
-        return clientDao.getClientById(clientId);
+        List<Client> clients = clientDao.getAllClients();
+        return clients.stream()
+                .filter(c -> c.getClientId() == clientId)
+                .findFirst();
     }
 
 

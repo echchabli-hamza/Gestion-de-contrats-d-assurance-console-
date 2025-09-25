@@ -78,45 +78,9 @@ public class ClientDao {
 }
 
 
-    public List<Client> getClientsByNom(String nom) {
-        List<Client> clients = new ArrayList<>();
-        String sql = "SELECT * FROM Client WHERE nom = ?";
-
-        try {
-            PreparedStatement prmp = conn.prepareStatement(sql);
-            prmp.setString(1, nom);
-
-            ResultSet rs = prmp.executeQuery();
-            while (rs.next()) {
-                Client c = new Client(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("client_id"), rs.getInt("conseiller_id"));
-                clients.add(c);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-        }
-
-        return clients;
-    }
 
 
-    public Optional<Client> getClientById(int clientId) {
-        String sql = "SELECT * FROM Client WHERE client_id = ?";
 
-        try {
-            PreparedStatement prmp = conn.prepareStatement(sql);
-            prmp.setInt(1, clientId);
-
-            ResultSet rs = prmp.executeQuery();
-            if (rs.next()) {
-                Client c = new Client(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("client_id"), rs.getInt("conseiller_id"));
-                return Optional.of(c);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-        }
-
-        return Optional.empty();
-    }
 
 
 
@@ -144,5 +108,8 @@ public class ClientDao {
         return clients;
 
     }
+
+
+
 
 }

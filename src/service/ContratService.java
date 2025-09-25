@@ -28,8 +28,12 @@ public class ContratService {
 
 
     public Optional<Contrat> getContratById(int id) {
-        return contratDao.getContratById(id);
+        List<Contrat> contrats = contratDao.getAllContrats();
+        return contrats.stream()
+                .filter(c -> c.getId() == id)
+                .findFirst();
     }
+
 
 
     public boolean deleteContrat(int id) {
@@ -49,4 +53,4 @@ public class ContratService {
     public List<Contrat> getAllContrats() {
         return contratDao.getAllContrats();
     }
-}
+ }

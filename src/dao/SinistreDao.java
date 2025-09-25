@@ -41,26 +41,7 @@ public class SinistreDao {
 
 
 
-    public Optional<Sinistre> getSinistreById(int id) {
-        String sql = "SELECT * FROM Sinistre WHERE sinistre_id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                Sinistre s = new Sinistre(
-                        rs.getInt("sinistre_id"),
-
-                        rs.getDate("date"),
-                        rs.getDouble("montant"),rs.getString("description"),TypeSinistre.valueOf(rs.getString("type") ),rs.getInt("contrat_id")
-                );
-                return Optional.of(s);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching Sinistre: " + e.getMessage());
-        }
-        return Optional.empty();
-    }
 
 
 

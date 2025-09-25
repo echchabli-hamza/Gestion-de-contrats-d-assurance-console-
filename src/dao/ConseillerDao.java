@@ -92,24 +92,6 @@ public class ConseillerDao {
     }
 
 
-    public Optional<Conseiller> getConseillerById(int conseillerId) {
-        String sql = "SELECT conseiller_id, nom, prenom, email FROM Conseiller WHERE conseiller_id = ?";
-        try {
-            PreparedStatement prmp = conn.prepareStatement(sql);
-            prmp.setInt(1, conseillerId);
-
-            ResultSet rs = prmp.executeQuery();
-            if (rs.next()) {
-                Conseiller c = new Conseiller(rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getInt("conseiller_id"));
-
-                return Optional.of(c);
-
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
-        }
-        return Optional.empty();
-    }
 
 
 //    public HashMap<Integer, Client> getAllClient(int conseiller_id) {

@@ -34,11 +34,12 @@ public class ConseillerService {
     }
 
 
-    public Optional<Conseiller> getByIt(int id){
-
-        return cs.getConseillerById(id);
-
+    public Optional<Conseiller> getByIt(int id) {
+        return cs.getAll().stream()
+                .filter(c -> c.getConseillerId() == id)
+                .findFirst();
     }
+
 
     public List<Client> getclientByconseillerId(int id){
 

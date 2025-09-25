@@ -58,21 +58,7 @@ public class ContratDao {
     }
 
 
-    public Optional<Contrat> getContratById(int id) {
-        String sql = "SELECT * FROM Contrat WHERE contrat_id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                Contrat c = new Contrat(rs.getInt("contrat_id"), rs.getDate("date_debut"), rs.getDate("date_fin"), TypeContract.valueOf(rs.getString("typecontrat")) , rs.getInt("client_id"));
-                return Optional.of(c);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error fetching contrat: " + e.getMessage());
-        }
-        return Optional.empty();
-    }
 
 
     public List<Contrat> getAllContrats() {
