@@ -41,7 +41,6 @@ public class ConseillerDao {
             return res > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error :" + e.getMessage());
             return false;
         }
 
@@ -68,7 +67,7 @@ public class ConseillerDao {
             }
 
         } catch (SQLException e) {
-            System.out.println("SQL Error" + e.getMessage());
+           return listeCr;
 
         }
 
@@ -85,7 +84,7 @@ public class ConseillerDao {
             int res = prmp.executeUpdate();
             return res > 0;
         } catch (SQLException e) {
-            System.out.println("SQL Error: " + e.getMessage());
+
             return false;
         }
     }

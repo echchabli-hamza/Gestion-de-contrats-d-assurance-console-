@@ -46,8 +46,6 @@ public class ClientDao {
         }
         catch(SQLException e){
 
-            System.out.println("SQL Error : " + e.getMessage());
-
             return false;
 
         }
@@ -72,7 +70,6 @@ public class ClientDao {
 
     } catch (SQLException e) {
 
-        System.out.println("SQL Error: " + e.getMessage());
         return false;
     }
 }
@@ -101,7 +98,7 @@ public class ClientDao {
 
         } catch (SQLException e) {
 
-            System.err.println("Error fetching clients: " + e.getMessage());
+           return clients;
 
         }
 

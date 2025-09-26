@@ -39,7 +39,7 @@ public class ContratDao {
 
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error creating contrat: " + e.getMessage());
+
             return false;
         }
     }
@@ -52,7 +52,7 @@ public class ContratDao {
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error deleting contrat: " + e.getMessage());
+
             return false;
         }
     }
@@ -82,7 +82,7 @@ public class ContratDao {
             }
 
         } catch (SQLException e) {
-            System.err.println("Error fetching contrats: " + e.getMessage());
+            return contrats;
         }
 
         return contrats;

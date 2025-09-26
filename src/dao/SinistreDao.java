@@ -34,7 +34,7 @@ public class SinistreDao {
             return affectedRows > 0;
 
         } catch (SQLException e) {
-            System.err.println("Error creating Sinistre: " + e.getMessage());
+
             return false;
         }
     }
@@ -46,7 +46,7 @@ public class SinistreDao {
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error deleting Sinistre: " + e.getMessage());
+
             return false;
         }
     }
@@ -77,7 +77,7 @@ public class SinistreDao {
 
           }catch(SQLException s){
 
-            System.out.println("Error : " + s.getMessage());
+            return liste ;
 
           }
 
