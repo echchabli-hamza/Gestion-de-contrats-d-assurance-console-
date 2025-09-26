@@ -6,7 +6,8 @@ import dao.ContratDao;
 import dao.SinistreDao;
 import model.Client;
 import model.Conseiller;
-import model.Contrat;
+import view.ClientView;
+import view.ConseillerView;
 import model.Sinistre;
 import service.ClientService;
 import service.ConseillerService;
@@ -21,9 +22,9 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
 
-        ContratService sd=new ContratService();
+        ClientView sd = new ClientView();
 
-   //    ContratDao cd = new ContratDao();
+        //    ContratDao cd = new ContratDao();
 //
 //        Contrat c = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
 //
@@ -47,19 +48,10 @@ public class Main {
 //
 //        cd.createContrat(c3 , 6);
 
-       List<Contrat> Lres= sd.getContratsByClientId(6);
 
-
-       System.out.println(sd.getContratById(4).toString());
-
-
-        for(Contrat res : Lres) {
-
-         //   System.out.println(res.toString());
-        }
+        sd.index();
 
     }
-
 
 
 }

@@ -40,6 +40,17 @@ public class SinistreDao {
     }
 
 
+    public boolean deleteSinistreById(int id) {
+        String sql = "DELETE FROM sinistre WHERE sinistre_id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error deleting Sinistre: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 
 

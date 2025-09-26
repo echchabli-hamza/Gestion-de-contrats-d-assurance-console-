@@ -26,7 +26,7 @@ public class ClientDao {
     public boolean createClient(Client c){
 
 
-        String url = "insert into Client ( client_id ,nom , Preonm , email , conseiller_id ) values (? ,?,?,? ,?)" ;
+        String url = "insert into Client ( client_id ,nom , Prenom , email , conseiller_id ) values (? ,?,?,? ,?)" ;
 
 
         try {
