@@ -77,7 +77,7 @@ public class ContratDao {
                         TypeContract.valueOf(rs.getString("typecontrat") ), rs.getInt("client_id")
                 );
 
-                System.out.println(rs.getInt("client_id") );
+
                 contrats.add(c);
             }
 

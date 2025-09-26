@@ -12,6 +12,8 @@ import model.Sinistre;
 import service.ClientService;
 import service.ConseillerService;
 import service.ContratService;
+import view.ContratView;
+import view.SinistreView;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
 
-        ClientView sd = new ClientView();
+        SinistreView sd = new SinistreView();
 
         //    ContratDao cd = new ContratDao();
 //

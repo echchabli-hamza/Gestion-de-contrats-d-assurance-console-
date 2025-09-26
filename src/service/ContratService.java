@@ -43,7 +43,7 @@ public class ContratService {
 
     public List<Contrat> getContratsByClientId(int clientId) {
         List<Contrat> contrats = contratDao.getAllContrats();
-        System.out.println(contrats.get(1).toString());
+
         return contrats.stream()
                 .filter(c -> c.getclientId() == clientId)
                 .collect(Collectors.toList());
