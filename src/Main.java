@@ -24,7 +24,7 @@ import java.util.Optional;
 public class Main {
     public static void main(String[] args) {
 
-        SinistreView sd = new SinistreView();
+        ClientView sd = new ClientView();
 
         //    ContratDao cd = new ContratDao();
 //

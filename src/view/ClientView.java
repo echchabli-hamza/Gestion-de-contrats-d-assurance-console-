@@ -3,6 +3,7 @@ package view;
 import model.Client;
 import service.ClientService;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -29,8 +30,8 @@ public class ClientView {
             System.out.println("6. Quitter");
             System.out.print("Choisissez une option: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            int choice = readInt();
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1:
@@ -65,7 +66,7 @@ public class ClientView {
         System.out.print("Email: ");
         String email = scanner.nextLine();
         System.out.print("ID du conseiller: ");
-        int conseillerId = scanner.nextInt();
+        int conseillerId = readInt();
         scanner.nextLine();
 
         Client client = new Client(nom, prenom, email, conseillerId);
@@ -78,9 +79,9 @@ public class ClientView {
 
     private void deleteClient() {
         System.out.print("ID du client à supprimer: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         System.out.print("ID du conseiller: ");
-        int conseillerId = scanner.nextInt();
+        int conseillerId = readInt();
         scanner.nextLine();
 
         if (clientService.deleteClient(clientId, conseillerId)) {
@@ -107,7 +108,7 @@ public class ClientView {
 
     private void searchClientById() {
         System.out.print("ID du client: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         scanner.nextLine();
 
         Optional<Client> client = clientService.getClientById(clientId);
@@ -121,7 +122,7 @@ public class ClientView {
 
     private void listClientsByConseiller() {
         System.out.print("ID du conseiller: ");
-        int conseillerId = scanner.nextInt();
+        int conseillerId = readInt();
         scanner.nextLine();
 
         List<Client> clients = clientService.getAllClients().stream()
@@ -133,6 +134,21 @@ public class ClientView {
         } else {
             System.out.println("Clients du conseiller " + conseillerId + ":");
             clients.forEach(System.out::println);
+        }
+    }
+
+
+    private int readInt() {
+        while (true) {
+            try {
+
+                int value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println(" Erreur : Entrez un nombre entier valide.");
+                scanner.nextLine();
+            }
         }
     }
 }

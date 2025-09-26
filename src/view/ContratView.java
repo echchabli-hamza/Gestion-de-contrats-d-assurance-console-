@@ -6,6 +6,7 @@ import Type.TypeContract;
 import service.ContratService;
 
 import java.sql.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -31,7 +32,7 @@ public class ContratView {
             System.out.println("6. Quitter");
             System.out.print("Votre choix: ");
 
-            int choice = scanner.nextInt();
+            int choice = readInt();
             scanner.nextLine(); // consume newline
 
             switch (choice) {
@@ -61,7 +62,7 @@ public class ContratView {
 
     private void addContrat() {
         System.out.print("ID du client: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         scanner.nextLine();
 
         System.out.print("Type de contrat (ex: AUTOMOBILE , IMMOBILIER , MALADIE: ");
@@ -82,7 +83,7 @@ public class ContratView {
 
     private void deleteContrat() {
         System.out.print("ID du contrat à supprimer: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         boolean success = contratService.deleteContrat(id);
@@ -91,7 +92,7 @@ public class ContratView {
 
     private void searchContratById() {
         System.out.print("ID du contrat à rechercher: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         Optional<Contrat> contrat = contratService.getContratById(id);
@@ -104,7 +105,7 @@ public class ContratView {
 
     private void listContratsByClientId() {
         System.out.print("ID du client: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         scanner.nextLine();
 
         List<Contrat> contrats = contratService.getContratsByClientId(clientId);
@@ -123,4 +124,20 @@ public class ContratView {
             contrats.forEach(System.out::println);
         }
     }
+
+
+    private int readInt() {
+        while (true) {
+            try {
+
+                int value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println(" Erreur : Entrez un nombre entier valide.");
+                scanner.nextLine();
+            }
+        }
+    }
+
 }

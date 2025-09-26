@@ -4,6 +4,7 @@ import model.Client;
 import model.Conseiller;
 import service.ConseillerService;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class ConseillerView {
             System.out.println("5. Quitter");
             System.out.print("Votre choix: ");
 
-            int choice = scanner.nextInt();
+            int choice = readInt();
             scanner.nextLine(); // consume newline
 
             switch (choice) {
@@ -76,7 +77,7 @@ public class ConseillerView {
 
     private void deleteConseiller() {
         System.out.print("ID du conseiller à supprimer: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         if (conseillerService.deleteConseillerbyId(id)) {
@@ -88,7 +89,7 @@ public class ConseillerView {
 
     private void searchConseiller() {
         System.out.print("ID du conseiller à rechercher: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         Optional<Conseiller> conseiller = conseillerService.getByIt(id);
@@ -102,7 +103,7 @@ public class ConseillerView {
 
     private void listClientsByConseiller() {
         System.out.print("ID du conseiller: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         List<Client> clients = conseillerService.getclientByconseillerId(id);
@@ -113,4 +114,24 @@ public class ConseillerView {
             clients.forEach(c -> System.out.println(c.getClientId() + " nom : " + c.getNom() + " prenom :" + c.getPernom()));
         }
     }
+
+
+
+
+
+    private int readInt() {
+        while (true) {
+            try {
+
+                int value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println(" Erreur : Entrez un nombre entier valide.");
+                scanner.nextLine();
+            }
+        }
+    }
+    
+    
 }

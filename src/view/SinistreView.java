@@ -5,6 +5,7 @@ import model.Sinistre;
 import service.SinistreService;
 
 import java.sql.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -34,7 +35,7 @@ public class SinistreView {
             System.out.println("10. Quitter");
             System.out.print("Votre choix: ");
 
-            int choice = scanner.nextInt();
+            int choice = readInt();
             scanner.nextLine();
 
             switch (choice) {
@@ -76,7 +77,7 @@ public class SinistreView {
 
     private void addSinistre() {
         System.out.print("ID du contrat associé: ");
-        int contratId = scanner.nextInt();
+        int contratId = readInt();
         scanner.nextLine();
 
         System.out.print("Date du sinistre (YYYY-MM-DD): ");
@@ -84,7 +85,7 @@ public class SinistreView {
         Date date = Date.valueOf(dateStr);
 
         System.out.print("Montant du sinistre: ");
-        double montant = scanner.nextDouble();
+        double montant = readDouble();
         scanner.nextLine();
 
         System.out.print("Description du sinistre: ");
@@ -102,7 +103,7 @@ public class SinistreView {
 
     private void deleteSinistre() {
         System.out.print("ID du sinistre à supprimer: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         boolean success = sinistreService.deleteSinistreById(id);
@@ -111,7 +112,7 @@ public class SinistreView {
 
     private void totalCoutByClient() {
         System.out.print("ID du client: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         scanner.nextLine();
 
         double total = sinistreService.getTotalCoutByClientId(clientId);
@@ -120,7 +121,7 @@ public class SinistreView {
 
     private void searchById() {
         System.out.print("ID du sinistre: ");
-        int id = scanner.nextInt();
+        int id = readInt();
         scanner.nextLine();
 
         Optional<Sinistre> sinistre = sinistreService.getSinistreById(id);
@@ -133,7 +134,7 @@ public class SinistreView {
 
     private void listByContratId() {
         System.out.print("ID du contrat: ");
-        int contratId = scanner.nextInt();
+        int contratId = readInt();
         scanner.nextLine();
 
         List<Sinistre> sinistres = sinistreService.getSinistresByContratId(contratId);
@@ -155,7 +156,7 @@ public class SinistreView {
 
     private void listByClientId() {
         System.out.print("ID du client: ");
-        int clientId = scanner.nextInt();
+        int clientId = readInt();
         scanner.nextLine();
 
         List<Sinistre> sinistres = sinistreService.getSinistresByClientId(clientId);
@@ -181,7 +182,7 @@ public class SinistreView {
 
     private void listAboveMontant() {
         System.out.print("Montant minimum: ");
-        double montant = scanner.nextDouble();
+        double montant = readDouble();
         scanner.nextLine();
 
         List<Sinistre> sinistres = sinistreService.getSinistresAboveMontant(montant);
@@ -191,4 +192,41 @@ public class SinistreView {
             sinistres.forEach(System.out::println);
         }
     }
+
+
+
+    private double readDouble() {
+        while (true) {
+            try {
+                double value = scanner.nextDouble();
+
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println(" Erreur : Entrez un nombre valide (double).");
+                scanner.nextLine();
+            }
+        }
+    }
+
+
+    private int readInt() {
+        while (true) {
+            try {
+
+                int value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println(" Erreur : Entrez un nombre entier valide.");
+                scanner.nextLine();
+            }
+        }
+    }
+
+
+
+
+
+
+
 }
