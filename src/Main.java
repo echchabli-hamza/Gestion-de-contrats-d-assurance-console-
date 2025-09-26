@@ -1,59 +1,49 @@
-import Type.TypeContract;
-import Type.TypeSinistre;
-import dao.ClientDao;
-import dao.ConseillerDao;
-import dao.ContratDao;
-import dao.SinistreDao;
-import model.Client;
-import model.Conseiller;
 import view.ClientView;
 import view.ConseillerView;
-import model.Sinistre;
-import service.ClientService;
-import service.ConseillerService;
-import service.ContratService;
 import view.ContratView;
 import view.SinistreView;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        ClientView sd = new ClientView();
+        while (running) {
+            System.out.println("\n===== Menu Principal =====");
+            System.out.println("1. Gérer les Conseillers");
+            System.out.println("2. Gérer les Clients");
+            System.out.println("3. Gérer les Contrats");
+            System.out.println("4. Gérer les Sinistres");
+            System.out.println("0. Quitter");
+            System.out.print("Votre choix : ");
 
-        //    ContratDao cd = new ContratDao();
-//
-//        Contrat c = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
-//
-//        Contrat c1 = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
-//
-//        Contrat c2 = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
-//
-//        Contrat c3 = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
-//
-//        Contrat c4 = new Contrat( Date.valueOf("2025-09-01") , Date.valueOf("2025-09-01"), TypeContract.AUTOMOBILE );
-//
-//
-//
-//
-//
-//        System.out.println(c.getId());
-//
-//        cd.createContrat(c1 , 6);
-//
-//        cd.createContrat(c2 , 6);
-//
-//        cd.createContrat(c3 , 6);
+            int choix = scanner.nextInt();
+            scanner.nextLine(); // vider le buffer
 
+            switch (choix) {
+                case 1:
+                    new ConseillerView().index();
+                    break;
+                case 2:
+                    new ClientView().index();
+                    break;
+                case 3:
+                    new ContratView().index();
+                    break;
+                case 4:
+                    new SinistreView().index();
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Au revoir !");
+                    break;
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        }
 
-        sd.index();
-
+        scanner.close();
     }
-
-
 }
